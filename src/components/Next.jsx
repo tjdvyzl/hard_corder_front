@@ -9,7 +9,13 @@ export const Next = (props) => {
   };
 
   const handleFinish = () => {
-    navigate("/results");
+    navigate("/results", {
+      state: {
+        score: props.score,
+        level: props.level,
+        gameMode: props.gameMode,
+      },
+    });
   };
 
   return (

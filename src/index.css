@@ -54,15 +54,17 @@ body {
 }
 .game-mode{
   display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   gap: 10px;
 }
 
 .app-header {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  margin-bottom: 4rem;
   text-align: center;
-  border:1px solid black;
+  border: 1px solid black;
   height: 80px;
   background-color: white;
 }
@@ -349,4 +351,200 @@ progress {
 .counter * {
   font-size: inherit;
   padding: 0.8rem;
+}
+
+.selectedQoBtn {
+  background-color: red;
+}
+
+.menu-button {
+  background-color: #fff;
+  color: #000;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.menu-button:hover {
+  color: #007bff;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-left nav {
+  margin-right: 20px;
+}
+
+.header-left a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+.header-right a,
+button {
+  font-size: 30px;
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  text-decoration-line: none;
+}
+
+.header-right a:hover,
+button:hover {
+  color: #007bff;
+}
+
+.slide-menu {
+  z-index: 15;
+  position: fixed;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.slide-menu nav {
+  padding: 60px 20px;
+}
+
+.slide-menu a {
+  display: block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.slide-menu a:hover {
+  color: #007bff;
+}
+
+.slide-menu-close {
+  font-size: 25px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.slide-menu-close:hover {
+  color: #0056b3;
+}
+
+.sign-form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.sign-title {
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.sign-formGroup {
+  margin-bottom: 15px;
+}
+
+.sign-label {
+  color: #fff;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 25px;
+}
+
+.sign-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.sign-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.sign-last {
+  color: #fff;
+  display: block;
+  font-size: 15px;
+  text-align: right;
+}
+
+.sign-last a:link {
+  color: skyblue;
+}
+
+.sign-last a:visited {
+  color: skyblue;
+}
+
+.footerContainer {
+  display: flex;
+}
+
+.mypage {
+  font-size: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.mypage h1 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-top: 50px;
+}
+
+.mypage hr {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+.post-list {
+  display: grid;
+  flex-wrap: wrap;
+}
+
+.post-item {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* PostDetail 컴포넌트 스타일 */
+#post-detail {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.post-item-title,
+:visited {
+  color: #fff;
 }

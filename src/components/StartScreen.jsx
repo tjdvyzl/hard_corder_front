@@ -1,11 +1,31 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
-export const StartScreen = () => {
+export const StartScreen = (props) => {
   const navigate = useNavigate();
 
+  const optionTypes = [
+    "datastructure",
+    "algorithm",
+    "network",
+    "database",
+    "computerarchitecture",
+    "operatingsystem",
+  ];
+  const [currentOptionType, setCurrentOptionType] = useState("");
+
   const handleClick = (e) => {
-    navigate(`/quiz/${e.target.value}`);
+    if (currentOptionType === "") alert("select option");
+    else {
+      navigate(`/quiz/${e.target.value}`, {
+        state: { optionType: currentOptionType },
+      });
+    }
+  };
+
+  const onClickHandler = (e) => {
+    setCurrentOptionType(e.currentTarget.value);
   };
 
   return (
@@ -13,6 +33,23 @@ export const StartScreen = () => {
       <h2>Welcome to The hackathon Quiz!</h2>
       <h3>many question to test your general knowledge</h3>
       <h4 style={{ marginTop: "20px" }}>First, choose the test difficulty:</h4>
+      <div className="game-mode" style={{ paddingBottom: "30px" }}>
+        {optionTypes.map((optionType, idx) => {
+          return (
+            <Button
+              key={idx}
+              style={{ fontSize: "19px" }}
+              value={optionType}
+              onClick={onClickHandler}
+              className={
+                optionType === currentOptionType ? "selectedQoBtn" : ""
+              }
+            >
+              {optionType}
+            </Button>
+          );
+        })}
+      </div>
       <div className="game-mode">
         <button
           className="btn2"

@@ -1,12 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export const FinishedScreen = () => {
-  const points = 0;
-  const highscore = 0;
-  const gameMode = 0;
-  const percentage = Math.ceil((points * 100) / 300);
+export const FinishedScreen = (props) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const points = location.state.score;
+  const gameMode = location.state.gameMode;
+  const percentage = Math.ceil((points * 100) / 300);
+  const level = location.state.level;
 
   let congrats;
   if (percentage === 100) congrats = "Perfect!";
@@ -21,13 +22,13 @@ export const FinishedScreen = () => {
         {congrats} You scored <strong>{points}</strong> out of 300 ({percentage}
         %)
       </p>
-      <p className="highscore">(Highscore: {highscore} points)</p>
       <div className="reset-btns">
-        <button className="btn" onClick={() => navigate(`/`)}>
+        <button
+          style={{ width: "15em" }}
+          className="btn"
+          onClick={() => navigate("/")}
+        >
           Main Menu
-        </button>
-        <button className="btn" onClick={() => navigate(`/quiz/${gameMode}`)}>
-          Reset
         </button>
       </div>
     </>

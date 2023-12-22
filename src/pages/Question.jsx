@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Loader } from "../components/Loader";
 import { ErrorMessage } from "../components/ErrorMessage";
-import { Progress } from "../components/Progress";
 import { Next } from "../components/Next";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 export const Question = () => {
   const [gameMode, setGameMode] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("loading");
   const [currentQuestion, setCurrentQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [options, setOptions] = useState("");
@@ -16,16 +16,18 @@ export const Question = () => {
   const [score, setScore] = useState(0);
   const level = useParams().level;
   const styleCat = {
-    backgroundColor: level === "medium" ? "#e3ce0e" : "#fc2121",
+    backgroundColor: level === "middle" ? "#e3ce0e" : "#fc2121",
   };
-
-  const getQuesition = () => {
+  const location = useLocation();
+  const selectedOptionType = location.state?.optionType;
+  const [gptQuestion, setGptQuestion] = useState("");
+  const getQuestion = () => {
     let res = axios({
       method: "post",
       url: "http://192.168.211.189:8090/api/quiz",
       data: {
-        type: "datastructure",
-        level: "high",
+        type: `${selectedOptionType}`,
+        level: `${level}`,
       },
     })
       .then((response) => {
@@ -35,7 +37,6 @@ export const Question = () => {
         setStatus("ready");
         let new_array = response.data.options.split("!");
         setOptions(new_array);
-        console.log(response);
       })
       .catch((error) => {
         setStatus("error");
@@ -45,8 +46,9 @@ export const Question = () => {
   };
 
   useEffect(() => {
+    console.log(selectedOptionType);
     console.log(score);
-    getQuesition();
+    getQuestion();
   }, []);
 
   const onClickHandler = (e) => {
@@ -58,7 +60,33 @@ export const Question = () => {
 
   const nextQuestion = () => {
     setIsCorrected(false);
-    getQuesition();
+    getQuestion();
+  };
+
+  const optionTypeHandler = (e) => {};
+
+  const textAreaChangeHandler = (e) => {
+    setGptQuestion(e.currentTarget.value);
+    console.log(gptQuestion);
+  };
+
+  const searchBtnHandler = (e) => {
+    e.preventDefault();
+    let res = axios({
+      url: "http://192.168.211.189:8090/api/gpt",
+      method: "post",
+      data: {
+        type: `${selectedOptionType}`,
+        content: `${gptQuestion}`,
+      },
+    })
+      .then((response) => {
+        let res = response.data;
+        alert(res.content);
+      })
+      .catch((error) => {
+        alert("data error");
+      });
   };
 
   return (
@@ -67,12 +95,11 @@ export const Question = () => {
       {status === "error" && <ErrorMessage />}
       {status === "ready" && (
         <>
-          <Progress />
           <div className="question-cont">
-            <div className="category" style={level !== "easy" ? styleCat : {}}>
+            <div className="category" style={level !== "low" ? styleCat : {}}>
               {level} quiz
             </div>
-            <h4>{currentQuestion}</h4>
+            <h4 style={{ padding: "30px" }}>{currentQuestion}</h4>
             <div className="options">
               {options.map((option, idx) => {
                 return (
@@ -91,7 +118,35 @@ export const Question = () => {
               })}
             </div>
           </div>
-          <footer>{answer && <Next nextQuestion={nextQuestion} />}</footer>
+          <footer style={{ marginBottom: "17px" }}>
+            {answer && (
+              <Next
+                nextQuestion={nextQuestion}
+                score={score}
+                level={level}
+                gameMode={selectedOptionType}
+              />
+            )}
+          </footer>
+          <div className="footerContainer">
+            <textarea
+              style={{ width: "450px", height: "7em", fontSize: "20px" }}
+              placeholder="질문을 해보세요"
+              onChange={textAreaChangeHandler}
+            />
+            <Button
+              variant="primary"
+              onClick={searchBtnHandler}
+              style={{
+                margin: "10px 5px",
+                width: "7em",
+                height: "6em",
+                fontSize: "2em",
+              }}
+            >
+              Ask To AI
+            </Button>
+          </div>
         </>
       )}
     </main>
