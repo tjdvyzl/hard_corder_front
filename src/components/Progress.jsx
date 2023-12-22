@@ -1,14 +1,14 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from "react";
 
 export const Progress = () => {
-    const {index, points, answer} = useSelector(store => store.questions)
-    
   return (
-    <header className='progress'>
-        <progress max='15' value={index + Number(answer !== null)}/>
-        <p>Question <strong>{index+1}</strong> / 15</p>
-        <p><strong>{points}</strong> / 300</p>
+    <header className="progress">
+      <p>
+        Question <strong>1{/* index */}</strong> / 5
+      </p>
+      <p>
+        <strong>10 {/* point */}</strong> / 300
+      </p>
     </header>
-  )
-}
+  );
+};

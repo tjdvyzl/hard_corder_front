@@ -7,6 +7,8 @@
 
   --color-theme: #1098ad;
   --color-accent: #ffa94d;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -25,9 +27,9 @@ html {
 body {
   min-height: 100vh;
   color: var(--color-light);
-  background-color: var(--color-darkest);
-  padding: 3.2rem;
-  padding-top: 8rem;
+  /* background-color: var(--color-darkest); */
+  /* padding: 3.2rem;
+  padding-top: 8rem; */
 }
 
 .app {
@@ -38,11 +40,12 @@ body {
 }
 
 .main {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
 }
+
 .start-screen{
   display: flex;
   margin-top: 10px;
@@ -50,22 +53,20 @@ body {
   text-align: center;
 }
 .game-mode{
-
   display: flex;
   justify-content: center;
   gap: 10px;
 }
+
 .app-header {
   width: 100%;
   margin-bottom: 4rem;
   text-align: center;
+  border:1px solid black;
+  height: 80px;
+  background-color: white;
 }
-.app-header span{
-  color: #e2d40f;
-  text-shadow: 0 0 15px black;
-  animation: tilting 3s infinite;
-  transition: none;
-}
+
 @keyframes tilting{
   10% {
       opacity: 1;
